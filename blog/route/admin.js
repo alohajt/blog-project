@@ -8,6 +8,11 @@ admin.get('/login', (req, res) => {
     res.render('admin/login')
 })
 
+// realize admin login
+admin.post('/login', (req, res) => {
+    // receive request param
+})
+
 // create route for user list
 admin.get('/user', (req, res) => {
     res.render('admin/user')

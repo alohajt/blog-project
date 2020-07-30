@@ -19,6 +19,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // admin
+    // normal user
     role: {
         type: String,
         required: true
@@ -34,6 +36,20 @@ const userSchema = new mongoose.Schema({
 // create user 
 const User = mongoose.model('User', userSchema)
 
+// User.create({
+//     username: 'JT',
+//     email: 'alohajt94@gmail.com',
+//     password: '123456',
+//     role: 'admin',
+//     state: 0
+// })
+//     .then(() => {
+//         console.log('user created success');
+//     })
+//     .catch(() => {
+//         console.log('user create fail');
+//     })
+ 
 // export User group as module
 module.exports = {
     User: User
