@@ -1,6 +1,9 @@
 // create user
 // import mongoose
 const mongoose = require('mongoose')
+// import bcrypt
+const bcrypt = require('bcrypt')
+
 // create user schema rules
 const userSchema = new mongoose.Schema({
     username: {
@@ -36,20 +39,19 @@ const userSchema = new mongoose.Schema({
 // create user 
 const User = mongoose.model('User', userSchema)
 
-// User.create({
-//     username: 'JT',
-//     email: 'alohajt94@gmail.com',
-//     password: '123456',
-//     role: 'admin',
-//     state: 0
-// })
-//     .then(() => {
-//         console.log('user created success');
-//     })
-//     .catch(() => {
-//         console.log('user create fail');
-//     })
- 
+async function createUser() {
+    const salt = await bcrypt.genSalt(10)
+    const pass = await bcrypt.hash('123456', salt)
+    const user = await User.create({
+        username: 'JT',
+        email: 'alohajt94@gmail.com',
+        password: pass,
+        role: 'admin',
+        state: 0
+    })
+}
+
+// createUser()
 // export User group as module
 module.exports = {
     User: User
