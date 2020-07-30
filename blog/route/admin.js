@@ -11,6 +11,14 @@ admin.get('/login', (req, res) => {
 // realize admin login
 admin.post('/login', (req, res) => {
     // receive request param
+    const { email, password } = req.body
+    // if user didn't enter email address
+    if (email.trim().length == 0 || password.trim().length == 0) {
+        // return res.status(400).send('<h4>Wrong email address or password</h4>')
+        return res.status(400).render('admin/error', {msg:'Wrong email address or password'})
+
+    }
+   
 })
 
 // create route for user list

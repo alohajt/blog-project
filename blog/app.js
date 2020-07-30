@@ -2,10 +2,14 @@
 const express = require('express')
 // import path to deal with path
 const path = require('path')
+// import body-parser module to deal with POST request
+const bodyParser = require('body-parser')
 //create web server
 const app = express()
 // connect to database
 require('./model/connect')
+// deal with POST request  
+app.use(bodyParser.urlencoded({extended: false}))
 
 // tell express the template location
 app.set('views', path.join(__dirname, 'views'))
