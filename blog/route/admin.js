@@ -4,9 +4,13 @@ const { model, models } = require('mongoose')
 // create blog admin route
 const admin = express.Router()
 
-admin.get('/', (req, res) => {
-    res.send('welcome to admin page')
+admin.get('/login', (req, res) => {
+    res.render('admin/login')
 })
 
+// create route for user list
+admin.get('/user', (req, res) => {
+    res.render('admin/user')
+})
 //export route object as a module
 module.exports = admin;

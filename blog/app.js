@@ -1,7 +1,21 @@
 //import express framework
 const express = require('express')
+// import path to deal with path
+const path = require('path')
 //create web server
 const app = express()
+// connect to database
+require('./model/connect')
+
+// tell express the template location
+app.set('views', path.join(__dirname, 'views'))
+// tell express the template default suffix
+app.set('view engine', 'art')
+// template engine when render .art template
+app.engine('art', require('express-art-template'))
+
+// open static files
+app.use(express.static(path.join(__dirname, 'public')))
 
 // import route module
 const home = require('./route/home')
