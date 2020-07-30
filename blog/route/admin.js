@@ -18,6 +18,6 @@ admin.post('/login', require('./admin/login'))
 admin.get('/user', require('./admin/userPage'))
 
 // log out
-admin.get('/logout', (req, res) => {})
+admin.get('/logout', require('./admin/logout'))
 //export route object as a module
 module.exports = admin;
