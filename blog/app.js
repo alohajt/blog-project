@@ -37,6 +37,12 @@ app.use('/admin', require('./middleware/loginGuard'))
 app.use('/home', home)
 app.use('/admin', admin)
 
+app.use((err, req, res, next) => {
+    // JSON.parse() turn string to object
+    const result = JSON.parse(err)
+    res.redirect(`${result.path}?message=${result.message}`)
+})
+
 //listen port
 app.listen(80)
 console.log('web server starts to work, please go to localhost');

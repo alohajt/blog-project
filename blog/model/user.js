@@ -3,6 +3,8 @@
 const mongoose = require('mongoose')
 // import bcrypt
 const bcrypt = require('bcrypt')
+// import joi
+const Joi = require('joi')
 
 // create user schema rules
 const userSchema = new mongoose.Schema({
@@ -52,7 +54,23 @@ async function createUser() {
 }
 
 // createUser()
+
+//validate user data
+const validateUser = (user) => {
+    // define object validation rules
+    const schema = Joi.object({
+        username: Joi.string().min(2).max(12).required().error(new Error('wrong username format')),
+        email: Joi.string().email().required(),
+        password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+        role: Joi.string().valid('normal', 'admin').required(),
+        state: Joi.number().valid(0, 1).required()
+    })
+
+     // await schema.validate(req.body);
+     return Joi.assert(user, schema);
+}
 // export User group as module
 module.exports = {
-    User: User
+    User: User,
+    validateUser: validateUser
 }

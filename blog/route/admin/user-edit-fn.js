@@ -2,37 +2,27 @@ const { models } = require("mongoose");
 // import Joi
 const Joi = require('joi')
 // import user constructor
-const { User } = require('../../model/user')
+const { User, validateUser } = require('../../model/user')
 //import bcrypt
 const bcrypt = require('bcrypt')
 
-module.exports = async (req, res) => {
-    // define object validation rules
-    const schema = Joi.object({
-        username: Joi.string().min(2).max(12).required().error(new Error('wrong username format')),
-        email: Joi.string().email().required(),
-        password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
-        role: Joi.string().valid('normal', 'admin').required(),
-        state: Joi.number().valid(0, 1).required()
-    })
-
-
+module.exports = async (req, res, next) => {
     try {
-        // await schema.validate(req.body);
-        await Joi.assert(res.body, schema);
-
+        await validateUser(req.body)
     } catch (e) {
-       return res.redirect(`/admin/user-edit?message=${e.message}`)
+    //    return res.redirect(`/admin/user-edit?message=${e.message}`)
         // e.message
         // console.log(e.message);
+        // JSON.stringify() turns object into string
+        return next(JSON.stringify({path: '/admin/user-edit', message: e.message}) )
     }
     // determine if email is unique
     let user = await User.findOne({ email: req.body.email })
     // if email exists, then user exists
     if (user) {
         // redirect
-        return res.redirect(`/admin/user-edit?message=This email is already taken`)
-
+        // return res.redirect(`/admin/user-edit?message=This email is already taken`)
+        return next(JSON.stringify({path: '/admin/user-edit', message: 'This email is already taken'}))
     }
     // encrypt password
     // generate random insert string
