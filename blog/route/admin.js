@@ -19,5 +19,12 @@ admin.get('/user', require('./admin/userPage'))
 
 // log out
 admin.get('/logout', require('./admin/logout'))
+
+// create route for user edit page
+admin.get('/user-edit', require('./admin/user-edit'))
+
+// create route to realize user add
+admin.post('/user-edit', require('./admin/user-edit-fn'))
+
 //export route object as a module
 module.exports = admin;
