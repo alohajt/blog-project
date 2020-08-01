@@ -40,7 +40,13 @@ app.use('/admin', admin)
 app.use((err, req, res, next) => {
     // JSON.parse() turn string to object
     const result = JSON.parse(err)
-    res.redirect(`${result.path}?message=${result.message}`)
+    let params = []
+    for (let attr in result) {
+        if (attr != 'path') {
+            params.push(attr + '=' + result[attr])
+        }
+    }
+    res.redirect(`${result.path}?${params.join('&')}`)
 })
 
 //listen port
