@@ -3,6 +3,9 @@ const { meta } = require("joi")
 const { User } = require('../../model/user')
 
 module.exports = async (req, res) => {
+    // 标识 标识当前访问的是用户管理页面
+    req.app.locals.currentLink = 'user';
+    
     // request id param form web address
     const { message, id } = req.query
     //if id, 

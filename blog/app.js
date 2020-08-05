@@ -6,9 +6,13 @@ const path = require('path')
 const bodyParser = require('body-parser')
 // import express-session
 const session = require('express-session')
+// import dataFormat module
+// const dateFormat = require('dateformat');
+// import art-template
+const template = require('art-template')
 
 //create web server
-const app = express()
+const app = express() 
 // connect to database
 require('./model/connect')
 // deal with POST request  
@@ -22,6 +26,9 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'art')
 // template engine when render .art template
 app.engine('art', require('express-art-template'))
+// 向模板内部导入dateFormate变量
+template.defaults.imports.dateFormat = dateFormat;
+
 
 // open static files
 app.use(express.static(path.join(__dirname, 'public')))
