@@ -26,7 +26,7 @@ admin.get('/user-edit', require('./admin/user-edit'))
 // create route to realize user add
 admin.post('/user-edit', require('./admin/user-edit-fn'))
 
-admin.post( '/user-modify', require('./admin/user-modify'))
+admin.post('/user-modify', require('./admin/user-modify'))
 
 //export route object as a module
 module.exports = admin;
